@@ -1,7 +1,8 @@
 import trpc from "./utils/trpc";
 
+
 const App = () => {
-  const { isLoading } = trpc.example.useQuery();
+  const { isLoading } = trpc.signup.credential.useMutation()
 
   return (
     <main className="w-screen h-screen flex-col justify-center flex items-center">
