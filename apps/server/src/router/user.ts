@@ -2,6 +2,9 @@ import { z } from "zod";
 import { router, publicProcedure, protectedProcedure, t } from "../trpc";
 
 const userRouter = router({
+  get: publicProcedure.query(() => {
+    return { message: "hello123" };
+  }),
   exampleWithArgs: publicProcedure
     .input(
       z.object({
