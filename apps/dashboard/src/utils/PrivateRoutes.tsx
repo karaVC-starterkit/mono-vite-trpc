@@ -4,7 +4,6 @@ import { Navigate, Outlet } from "react-router-dom";
 import trpc from "./trpc";
 
 export const PrivateRoutes = () => {
-  // TODO: CREATE a TRPC request to check if the cookie is set and ssend true
   //TODO: Think also how to catch tos accepted, plan accepted, email veryfied or not etc....
   // const [auth, setAuth] = useState();
   const { data, isFetched } =
