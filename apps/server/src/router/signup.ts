@@ -4,16 +4,11 @@ import { CookieSerializeOptions, serialize } from "cookie";
 import { z } from "zod";
 import { decodeJWT, encodeJWT, encryptPassword } from "../../utils/auth";
 import { createDigits } from "../../utils/createDigits";
+import { cookieOptions } from "../../utils/defaults";
 import { sendEmailVerification } from "../../utils/mailer";
 import { router, publicProcedure, protectedProcedure, t } from "../trpc";
 
-const cookieOptions: CookieSerializeOptions = {
-  httpOnly: true,
-  // secure: process.env.NODE_ENV === "production",
-  // sameSite: "strict",
-  // path: "/",
-  maxAge: 60 * 60 * 24 * 7, // 1 week
-};
+
 
 const SignUpRouter = router({
   getUser: publicProcedure.query(() => "hello my friend"),
