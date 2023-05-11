@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 export const encryptPassword = async (password: string): Promise<string> => {
   return await bcrypt.hash(password, bcrypt.genSaltSync(13));
@@ -28,5 +28,5 @@ export const encodeJWT = (
 
 export const decodeJWT = (token: string, secret: string) => {
   const payload = jwt.verify(token, `${process.env.JWT_SECRET}-${secret}`);
-  return payload;
+  return payload as JwtPayload;
 };

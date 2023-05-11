@@ -5,18 +5,37 @@ type Props = {};
 
 const Signin = (props: Props) => {
   const { mutateAsync } = trpc.signup.credential.useMutation();
-  const handleLogin = () => {
+  const { data } = trpc.user.get.useQuery();
+  const handleSignUp = () => {
     mutateAsync({
       email: "kara.kaan1995@gmail.com",
       password: "Test@123",
-    }).catch((e) => {
-      console.log(e);
-    });
+    })
+      .then((resolve) => {
+        console.log(resolve);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const handleSignIn = () => {};
+  const handleTest = () => {
+    console.log(data);
   };
   return (
     <div>
       <h1>Signin</h1>
-      <button onClick={handleLogin}>Sign in</button>
+
+      <button style={{ margin: "1em", padding: "1em" }} onClick={handleSignUp}>
+        Sign UP
+      </button>
+      <button style={{ margin: "1em", padding: "1em" }} onClick={handleSignIn}>
+        Sign IN
+      </button>
+      <button style={{ margin: "1em", padding: "1em" }} onClick={handleTest}>
+        test
+      </button>
     </div>
   );
 };

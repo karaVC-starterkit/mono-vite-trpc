@@ -9,6 +9,12 @@ export default function App({ Component, pageProps }: AppProps) {
     links: [
       httpBatchLink({
         url: `${process.env.NEXT_PUBLIC_VITE_TRPC_SERVER_URL}`,
+        fetch(url, options) {
+          return fetch(url, {
+            ...options,
+            credentials: "include",
+          });
+        },
       }),
     ],
   });

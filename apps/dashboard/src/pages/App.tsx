@@ -1,4 +1,4 @@
-import trpc from "./utils/trpc";
+import trpc from "../utils/trpc";
 
 const App = () => {
   const { isLoading } = trpc.signup.credential.useMutation();
