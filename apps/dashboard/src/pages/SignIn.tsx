@@ -8,7 +8,21 @@ const SignIn = (props: Props) => {
   const handleSignIn = () => {
     mutateAsync({ email: "kara.kaan1995@gmail.com", password: "Test@123" });
   };
-  return <button onClick={handleSignIn}>SignIn</button>;
+  const handleSignInGoogle = async () => {
+    const data = await fetch("http://localhost:5001/auth/google");
+    console.log(data);
+  };
+  const handleSignInGithub = async () => {
+    const data = await fetch("http://localhost:5001/auth/github");
+    console.log(data);
+  };
+  return (
+    <>
+      <button onClick={handleSignIn}>SignIn</button>;
+      <a href="http://localhost:5001/auth/google">Sign in with Google</a>;
+      <button onClick={handleSignInGithub}>Sign in with Github</button>;
+    </>
+  );
 };
 
 export default SignIn;

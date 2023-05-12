@@ -1,14 +1,17 @@
+import { Navigate } from "react-router-dom";
 import trpc from "../utils/trpc";
 
 const App = () => {
   const { isLoading } = trpc.signup.credential.useMutation();
-  const { data } = trpc.signup.getUser.useQuery();
+  const { mutateAsync } = trpc.signout.signOut.useMutation();
   const handleClick = () => {
-    console.log("hello", data);
+    mutateAsync(undefined, {
+      // onSuccess: () => <Navigate to={import.meta.env.LANDING_URL} />,
+    });
   };
   return (
     <main className="w-screen h-screen flex-col justify-center flex items-center">
-      <button onClick={handleClick}>TRPC</button>
+      <button onClick={handleClick}>Logout</button>
       <a href="https://github.com/mnik01/viteRPC">
         <svg
           width="94"

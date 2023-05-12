@@ -1,6 +1,7 @@
 import { transformDocument } from "@prisma/client/runtime";
 import { TRPCError } from "@trpc/server";
 import { CookieSerializeOptions, serialize } from "cookie";
+import passport from "passport";
 import { z } from "zod";
 import {
   comparePassword,
@@ -63,9 +64,10 @@ const SignInRouter = router({
       }
     }),
   sendCookie: publicProcedure.query(({ ctx }) => {
-    const { token } = ctx.req.cookies;
-    return token;
+    const { session } = ctx.req.cookies;
+    return session;
   }),
+
 });
 
 export default SignInRouter;
