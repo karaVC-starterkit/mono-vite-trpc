@@ -33,7 +33,13 @@ const SignInRouter = router({
             code: "BAD_REQUEST",
             message: "Invalid email or password",
           });
-
+        if (!user.password) {
+          // throw new TRPCError({
+          //   code: 'BAD_REQUEST',
+          //   message: 'Please sign in with your selected Provider.'
+          //   })
+          throw new Error('NOPE')
+          }
         const samePassword = await comparePassword(
           password,
           user.password as string
@@ -60,7 +66,8 @@ const SignInRouter = router({
 
         return { token };
       } catch (e) {
-        console.error(e);
+        
+        return e
       }
     }),
   sendCookie: publicProcedure.query(({ ctx }) => {
