@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { router, publicProcedure, protectedProcedure, t } from "../trpc";
+import { router, publicProcedure, privateProcedure, t } from "../trpc";
 
 const userRouter = router({
-  get: publicProcedure.query(() => {
+  get: privateProcedure.mutation(() => {
     return { message: "hello123" };
   }),
   exampleWithArgs: publicProcedure
@@ -18,16 +18,16 @@ const userRouter = router({
   exampleUser: publicProcedure.query(async ({ ctx }) => {
     return { info: 42 };
   }),
-  authExample: protectedProcedure
-    .use(
-      t.middleware(({ ctx, next }) => {
-        console.log("hello");
-        return next();
-      })
-    )
-    .query(() => {
-      return { message: "hello" };
-    }),
+  // authExample: protectedProcedure
+  //   .use(
+  //     t.middleware(({ ctx, next }) => {
+  //       console.log("hello");
+  //       return next();
+  //     })
+  //   )
+  //   .query(() => {
+  //     return { message: "hello" };
+  //   }),
 });
 
 export default userRouter;

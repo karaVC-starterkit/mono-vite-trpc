@@ -22,20 +22,7 @@ const app = express();
 
 app.use(express.json());
 
-// app.use(
-//   cors({
-//     origin: [
-//     //   process.env.LANDING_URL as string,
-//       process.env.DASHBOARD_URL as string,
-//       // "http://localhost:5001",
-//     ],
-//     // origin: "http://localhost:5173",
-//     // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//     // allowedHeaders: ["Content-Type", "Authorization"],
-//     credentials: true,
 
-//   })
-// );
 app.use(cookieParser());
 app.use(
   cookieSession({

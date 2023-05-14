@@ -1,4 +1,6 @@
 import { inferAsyncReturnType, initTRPC, TRPCError } from "@trpc/server";
+import passport from "passport";
+import { decodeJWT } from "../utils/auth";
 import { createContext } from "./app";
 
 type Context = inferAsyncReturnType<typeof createContext>;
@@ -7,21 +9,23 @@ const t = initTRPC.context<Context>().create();
 
 const isAuthed = t.middleware(({ ctx, next }) => {
   const { req, res } = ctx;
+  let user = req.user as Express.User;
 
-  const token = req.headers.authorization?.split(" ")[1];
-
-  if (!token) throw new TRPCError({ code: "UNAUTHORIZED" });
-    return next({
-        ctx: {
-          // JWT Payload
-      }
+  if (!user) {
+    const { session } = req.cookies;
+    user = decodeJWT(session, "SIGN_UP_VALIDATE_EMAIL");
+  }
+  return next({
+    ctx: {
+      user,
+    },
   });
 });
 
 const router = t.router;
 const publicProcedure = t.procedure;
-const protectedProcedure = t.procedure.use(isAuthed);
+const privateProcedure = t.procedure.use(isAuthed);
 const mergeRouters = t.mergeRouters;
 
-export { t, router, publicProcedure, protectedProcedure, mergeRouters };
+export { t, router, publicProcedure, privateProcedure, mergeRouters };
 export type { Context };

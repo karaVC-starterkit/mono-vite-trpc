@@ -6,7 +6,7 @@ import { decodeJWT, encodeJWT, encryptPassword } from "../../utils/auth";
 import { createDigits } from "../../utils/createDigits";
 import { cookieOptions } from "../../utils/defaults";
 import { sendEmailVerification } from "../../utils/mailer";
-import { router, publicProcedure, protectedProcedure, t } from "../trpc";
+import { router, publicProcedure, t } from "../trpc";
 
 const SignUpRouter = router({
   getUser: publicProcedure.query(() => "hello my friend"),

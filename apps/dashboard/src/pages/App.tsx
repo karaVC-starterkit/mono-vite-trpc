@@ -4,14 +4,19 @@ import trpc from "../utils/trpc";
 const App = () => {
   const { isLoading } = trpc.signup.credential.useMutation();
   const { mutateAsync } = trpc.signout.signOut.useMutation();
+  const { mutateAsync: authClick } = trpc.user.get.useMutation();
   const handleClick = () => {
     mutateAsync(undefined, {
       // onSuccess: () => <Navigate to={import.meta.env.LANDING_URL} />,
     });
   };
+  const handleAuthClick = () => {
+    authClick();
+  };
   return (
     <main className="w-screen h-screen flex-col justify-center flex items-center">
       <button onClick={handleClick}>Logout</button>
+      <button onClick={handleAuthClick}>Auth request</button>
       <a href="https://github.com/mnik01/viteRPC">
         <svg
           width="94"

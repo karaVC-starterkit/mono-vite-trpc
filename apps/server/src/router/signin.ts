@@ -12,7 +12,7 @@ import {
 import { createDigits } from "../../utils/createDigits";
 import { cookieOptions } from "../../utils/defaults";
 import { sendEmailVerification } from "../../utils/mailer";
-import { router, publicProcedure, protectedProcedure, t } from "../trpc";
+import { router, publicProcedure, t } from "../trpc";
 
 const SignInRouter = router({
   getUser: publicProcedure.query(() => "hello my friend"),
@@ -38,8 +38,8 @@ const SignInRouter = router({
           //   code: 'BAD_REQUEST',
           //   message: 'Please sign in with your selected Provider.'
           //   })
-          throw new Error('NOPE')
-          }
+          throw new Error("NOPE");
+        }
         const samePassword = await comparePassword(
           password,
           user.password as string
@@ -64,10 +64,10 @@ const SignInRouter = router({
           `${serialize("session", token, cookieOptions)}`
         );
 
+
         return { token };
       } catch (e) {
-        
-        return e
+        return e;
       }
     }),
   sendCookie: publicProcedure.query(({ ctx }) => {
