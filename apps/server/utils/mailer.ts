@@ -41,7 +41,7 @@ export const sendEmailVerification = async (email: string, code: string) => {
     to: email,
     subject: "Verify you account.",
     data: {
-      content: `<a href="${process.env.DASHBOARD_URL}/confirm-email?t=${code}">Verify email address</a>`,
+      content: `<a href="${process.env.APP_URL}/confirm-email?t=${code}">Verify email address</a>`,
     },
   });
 };

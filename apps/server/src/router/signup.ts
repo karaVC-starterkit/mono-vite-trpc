@@ -8,8 +8,6 @@ import { cookieOptions } from "../../utils/defaults";
 import { sendEmailVerification } from "../../utils/mailer";
 import { router, publicProcedure, protectedProcedure, t } from "../trpc";
 
-
-
 const SignUpRouter = router({
   getUser: publicProcedure.query(() => "hello my friend"),
   credential: publicProcedure
@@ -31,6 +29,8 @@ const SignUpRouter = router({
         const newUser = await ctx.prisma.user.create({
           data: {
             email,
+            firstname: "test",
+            lastname: "test",
             password: await encryptPassword(password),
           },
         });
@@ -47,7 +47,7 @@ const SignUpRouter = router({
 
         ctx.res.setHeader(
           "Set-Cookie",
-          `${serialize("token", token, cookieOptions)}`
+          `${serialize("session", token, cookieOptions)}`
         );
         return { token };
       } catch (e) {
@@ -58,13 +58,14 @@ const SignUpRouter = router({
     .input(z.object({ code: z.string().nullable() }))
     .mutation(async ({ ctx, input }) => {
       const { code: _code } = input;
-      const { token } = ctx.req.cookies;
+      const { session } = ctx.req.cookies;
       try {
         if (!_code) throw new TRPCError({ code: "BAD_REQUEST" });
 
-        const { code, email } = decodeJWT(token, "SIGN_UP_VALIDATE_EMAIL");
+        const { code, email } = decodeJWT(session, "SIGN_UP_VALIDATE_EMAIL");
 
         if (code !== _code) throw new TRPCError({ code: "BAD_REQUEST" });
+
         const user = await ctx.prisma.user.findUnique({ where: { email } });
         if (user?.emailVerifiedAt) throw new Error("EMAIL_IS_VALIDATED");
         await ctx.prisma.user.update({

@@ -1,3 +1,9 @@
+export interface IUser {
+  email: string;
+  firstname: string;
+  lastname: string;
+  fullname: string;
+}
 interface AttachmentType {
   content: string;
   filename: string;

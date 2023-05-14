@@ -20,7 +20,7 @@ const SignIn = (props: Props) => {
     <>
       <button onClick={handleSignIn}>SignIn</button>;
       <a href="http://localhost:5001/auth/google">Sign in with Google</a>;
-      <button onClick={handleSignInGithub}>Sign in with Github</button>;
+      <a href="http://localhost:5001/auth/microsoft">Sign in with microsoft</a>;
     </>
   );
 };

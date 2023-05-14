@@ -72,18 +72,15 @@ app.get(
 );
 
 app.get(
-  "/auth/github",
-  passport.authenticate("github", { scope: ["user:email"] })
+  "/auth/microsoft",
+  passport.authenticate("microsoft", { prompt: "select_account" })
 );
 app.get(
-  "/auth/github/callback",
-  passport.authenticate(
-    "github",
-    { failureRedirect: "/login" },
-    function (req: any, res: any) {
-      res.redirect("/");
-    }
-  )
+  "/auth/microsoft/callback",
+  passport.authenticate("microsoft", { failureRedirect: "/login" }),
+  (req, res) => {
+    res.redirect(process.env.APP_URL as string);
+  }
 );
 
 export default app;

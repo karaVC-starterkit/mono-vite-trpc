@@ -55,7 +55,7 @@ const SignInRouter = router({
 
         ctx.res.setHeader(
           "Set-Cookie",
-          `${serialize("token", token, cookieOptions)}`
+          `${serialize("session", token, cookieOptions)}`
         );
 
         return { token };
@@ -67,7 +67,6 @@ const SignInRouter = router({
     const { session } = ctx.req.cookies;
     return session;
   }),
-
 });
 
 export default SignInRouter;
